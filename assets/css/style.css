@@ -102,12 +102,6 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 @media (prefers-reduced-motion: reduce) { .stars::before { animation: none; } }
 
 .hero .wrap, .page-hero .wrap { position: relative; }
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em;
-  color: var(--cyan); margin-bottom: 22px;
-}
-.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--cyan); }
 .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 700; letter-spacing: -0.02em; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .subtitle { font-family: "Fraunces", serif; font-size: clamp(1.2rem, 2.4vw, 1.6rem); color: var(--text); max-width: 720px; margin: 18px 0 30px; font-weight: 400; }
