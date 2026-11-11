@@ -2,9 +2,593 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>AstroIA 2027</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AstroIA 2027 · Astronomia na Era da IA e dos Grandes Surveys</title>
+  <meta name="description" content="I Encontro de Astronomia na Era da Inteligência Artificial e dos Grandes Surveys. 5 a 9 de julho de 2027, Universidade Federal de Sergipe, São Cristóvão/SE.">
+  <meta property="og:title" content="AstroIA 2027">
+  <meta property="og:description" content="I Encontro de Astronomia na Era da Inteligência Artificial e dos Grandes Surveys · 5–9 jul 2027 · UFS, Sergipe">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://astroia2027.github.io">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230b1026'/><circle cx='32' cy='32' r='9' fill='%23f5b94a'/><ellipse cx='32' cy='32' rx='24' ry='8' fill='none' stroke='%2367e8f9' stroke-width='3' transform='rotate(-25 32 32)'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b1d;
+      --bg-2: #0d1430;
+      --panel: #111a3a;
+      --line: rgba(160, 180, 255, 0.14);
+      --text: #e8ecff;
+      --muted: #a3acd1;
+      --gold: #f5b94a;
+      --cyan: #67e8f9;
+      --violet: #a78bfa;
+      --radius: 14px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--cyan); }
+    h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; margin: 0; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .mono { font-family: "JetBrains Mono", monospace; letter-spacing: 0.02em; }
+    .todo {
+      background: rgba(245, 185, 74, 0.14);
+      border: 1px dashed rgba(245, 185, 74, 0.6);
+      color: var(--gold);
+      padding: 0 6px;
+      border-radius: 6px;
+      font-size: 0.92em;
+      white-space: nowrap;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7, 11, 29, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { font-family: "Fraunces", serif; font-weight: 700; font-size: 1.25rem; color: var(--text); text-decoration: none; }
+    .brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--text); }
+    .menu-btn { display: none; background: none; border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 6px 10px; font-size: 1rem; cursor: pointer; }
+
+    /* HERO */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 110px 0 120px;
+      background:
+        radial-gradient(1200px 600px at 85% -10%, rgba(167, 139, 250, 0.22), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, rgba(103, 232, 249, 0.14), transparent 60%),
+        var(--bg);
+    }
+    .stars, .stars::before, .stars::after {
+      position: absolute; inset: 0; pointer-events: none;
+      background-repeat: repeat;
+    }
+    .stars {
+      background-image:
+        radial-gradient(1px 1px at 20px 30px, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 140px 80px, #cfd8ff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 260px 160px, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 330px 40px, #9fb0ff 50%, transparent 51%),
+        radial-gradient(1px 1px at 80px 220px, #fff 50%, transparent 51%);
+      background-size: 380px 260px;
+      opacity: 0.55;
+    }
+    .stars::before {
+      content: "";
+      background-image:
+        radial-gradient(1px 1px at 60px 120px, #fff 50%, transparent 51%),
+        radial-gradient(2px 2px at 300px 210px, #f5d18a 50%, transparent 51%),
+        radial-gradient(1px 1px at 190px 20px, #fff 50%, transparent 51%);
+      background-size: 520px 340px;
+      opacity: 0.7;
+      animation: twinkle 6s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle { from { opacity: 0.25; } to { opacity: 0.85; } }
+    @media (prefers-reduced-motion: reduce) { .stars::before { animation: none; } }
+
+    .orbit {
+      position: absolute; right: -160px; top: 50%; transform: translateY(-50%);
+      width: 620px; height: 620px; pointer-events: none; opacity: 0.55;
+    }
+    .hero .wrap { position: relative; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--cyan); margin-bottom: 22px;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--cyan); }
+    .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 700; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+    .hero .subtitle { font-family: "Fraunces", serif; font-size: clamp(1.2rem, 2.4vw, 1.6rem); color: var(--text); max-width: 720px; margin: 18px 0 30px; font-weight: 400; }
+    .facts { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-bottom: 38px; color: var(--muted); }
+    .facts div { display: flex; align-items: center; gap: 10px; }
+    .facts svg { flex: none; color: var(--gold); }
+    .facts strong { color: var(--text); font-weight: 600; }
+    .cta { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px; border-radius: 999px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--gold); color: #1a1205; }
+    .btn-ghost { border: 1px solid var(--line); color: var(--text); background: rgba(255,255,255,0.03); }
+    .btn[aria-disabled="true"] { opacity: 0.85; cursor: default; }
+
+    /* SECTIONS */
+    section { padding: 96px 0; border-top: 1px solid var(--line); }
+    section.alt { background: var(--bg-2); }
+    .section-head { margin-bottom: 48px; max-width: 760px; }
+    .section-head .kicker { color: var(--gold); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 10px; display: block; }
+    .section-head h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 600; }
+    .section-head p { color: var(--muted); font-size: 1.05rem; margin: 14px 0 0; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
+    .about-grid p { color: var(--muted); margin: 0 0 16px; font-size: 1.05rem; }
+    .about-grid p strong { color: var(--text); font-weight: 600; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .stat b { display: block; font-family: "Fraunces", serif; font-size: 2.2rem; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+    .stat span { color: var(--muted); font-size: 0.9rem; }
+    .surveys { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .surveys span {
+      font-family: "JetBrains Mono", monospace; font-size: 0.82rem;
+      border: 1px solid var(--line); color: var(--text);
+      padding: 6px 12px; border-radius: 999px; background: rgba(103, 232, 249, 0.05);
+    }
+
+    /* TOPICS */
+    .topics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .topic { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; transition: border-color .2s ease; }
+    .topic:hover { border-color: rgba(245, 185, 74, 0.45); }
+    .topic .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(245, 185, 74, 0.12); color: var(--gold); margin-bottom: 16px; }
+    .topic h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+    .topic p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    /* PROGRAM */
+    .program { display: grid; gap: 12px; }
+    details.day { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    details.day[open] { border-color: rgba(103, 232, 249, 0.35); }
+    details.day summary {
+      list-style: none; cursor: pointer;
+      display: grid; grid-template-columns: 120px 1fr auto; gap: 20px; align-items: center;
+      padding: 22px 26px;
+    }
+    details.day summary::-webkit-details-marker { display: none; }
+    .day-date { font-family: "JetBrains Mono", monospace; color: var(--cyan); font-size: 0.85rem; line-height: 1.3; }
+    .day-date b { display: block; font-size: 1.5rem; color: var(--text); font-family: "Fraunces", serif; font-weight: 600; }
+    .day-theme { font-family: "Fraunces", serif; font-size: 1.2rem; font-weight: 600; }
+    .chev { transition: transform .2s ease; color: var(--muted); }
+    details[open] .chev { transform: rotate(180deg); }
+    .day-body { padding: 0 26px 26px 166px; display: grid; gap: 16px; }
+    .slot { display: grid; grid-template-columns: 80px 1fr; gap: 16px; }
+    .slot .when { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); padding-top: 3px; }
+    .slot p { margin: 0; color: var(--muted); }
+    .note { margin-top: 22px; color: var(--muted); font-size: 0.9rem; font-style: italic; }
+
+    /* SPEAKERS */
+    .speakers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .speaker { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; }
+    .avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: "Fraunces", serif; font-size: 1.5rem; font-weight: 600;
+      background: conic-gradient(from 200deg, var(--violet), var(--cyan), var(--gold), var(--violet));
+      color: #0b1026; margin-bottom: 18px;
+    }
+    .speaker h3 { font-size: 1.25rem; font-weight: 600; }
+    .speaker .inst { color: var(--cyan); font-size: 0.9rem; margin: 4px 0 14px; }
+    .speaker p { color: var(--muted); font-size: 0.93rem; margin: 0; flex: 1; }
+    .badge { align-self: flex-start; margin-top: 18px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); border: 1px solid rgba(245,185,74,0.4); padding: 3px 10px; border-radius: 999px; }
+
+    /* DATES */
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .tl { padding: 26px; border-right: 1px solid var(--line); background: var(--panel); }
+    .tl:last-child { border-right: 0; background: linear-gradient(160deg, rgba(245,185,74,0.16), var(--panel)); }
+    .tl .d { font-family: "JetBrains Mono", monospace; font-size: 0.95rem; color: var(--text); margin-bottom: 6px; }
+    .tl .l { color: var(--muted); font-size: 0.93rem; }
+
+    /* VENUE */
+    .venue { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+    .venue-info { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; }
+    .venue-info h3 { font-size: 1.4rem; margin-bottom: 12px; }
+    .venue-info p { color: var(--muted); margin: 0 0 14px; }
+    .venue iframe { width: 100%; height: 100%; min-height: 320px; border: 1px solid var(--line); border-radius: var(--radius); filter: invert(0.9) hue-rotate(190deg) saturate(0.6); }
+
+    /* COMMITTEES */
+    .committees { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .committee { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+    .committee h3 { font-size: 1.3rem; margin-bottom: 18px; }
+    .committee ul { list-style: none; margin: 0; padding: 0; }
+    .committee li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .committee li:last-child { border-bottom: 0; }
+    .committee li span:last-child { color: var(--muted); font-size: 0.9rem; text-align: right; }
+
+    /* CONTACT / FOOTER */
+    .contact { text-align: center; }
+    .contact h2 { font-size: clamp(2rem, 4vw, 2.6rem); margin-bottom: 14px; }
+    .contact p { color: var(--muted); margin: 0 auto 28px; max-width: 560px; }
+    footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 0.88rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+    footer strong { color: var(--text); font-weight: 600; }
+
+    /* RESPONSIVE */
+    @media (max-width: 920px) {
+      .about-grid, .venue, .committees { grid-template-columns: 1fr; }
+      .topics, .speakers { grid-template-columns: 1fr 1fr; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .tl:nth-child(2) { border-right: 0; }
+      .tl:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .day-body { padding-left: 26px; }
+      .orbit { opacity: 0.25; }
+    }
+    @media (max-width: 720px) {
+      .menu-btn { display: block; }
+      .nav-links {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        flex-direction: column; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 14px 24px; }
+      .topics, .speakers, .timeline { grid-template-columns: 1fr; }
+      .tl { border-right: 0; border-bottom: 1px solid var(--line); }
+      details.day summary { grid-template-columns: 1fr auto; }
+      .day-date { grid-column: 1 / -1; }
+      .slot { grid-template-columns: 1fr; gap: 4px; }
+      section { padding: 72px 0; }
+      .hero { padding: 80px 0 90px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>AstroIA 2027 – em breve</h1>
+
+  <nav aria-label="Navegação principal">
+    <div class="wrap">
+      <a href="#topo" class="brand">Astro<span>IA</span> 2027</a>
+      <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false" onclick="const l=document.querySelector('.nav-links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))">☰</button>
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#temas">Temas</a></li>
+        <li><a href="#programacao">Programação</a></li>
+        <li><a href="#palestrantes">Palestrantes</a></li>
+        <li><a href="#datas">Datas</a></li>
+        <li><a href="#local">Local</a></li>
+        <li><a href="#comissoes">Comissões</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero" id="topo">
+    <div class="stars" aria-hidden="true"></div>
+    <svg class="orbit" viewBox="0 0 620 620" aria-hidden="true">
+      <defs>
+        <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffe2a3"/><stop offset="60%" stop-color="#f5b94a"/><stop offset="100%" stop-color="#f5b94a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="310" cy="310" r="70" fill="url(#sun)"/>
+      <ellipse cx="310" cy="310" rx="280" ry="96" fill="none" stroke="#67e8f9" stroke-opacity=".5" stroke-width="1.2" transform="rotate(-24 310 310)"/>
+      <ellipse cx="310" cy="310" rx="210" ry="210" fill="none" stroke="#a78bfa" stroke-opacity=".35" stroke-dasharray="2 8"/>
+      <ellipse cx="310" cy="310" rx="160" ry="54" fill="none" stroke="#f5b94a" stroke-opacity=".4" transform="rotate(30 310 310)"/>
+      <circle cx="560" cy="200" r="7" fill="#67e8f9"/>
+      <circle cx="160" cy="160" r="4" fill="#a78bfa"/>
+      <circle cx="440" cy="400" r="5" fill="#f5b94a"/>
+      <!-- "rede neural" sutil -->
+      <g stroke="#a3acd1" stroke-opacity=".25" stroke-width="1">
+        <line x1="160" y1="160" x2="310" y2="310"/><line x1="560" y1="200" x2="310" y2="310"/><line x1="440" y1="400" x2="310" y2="310"/><line x1="160" y1="160" x2="560" y2="200"/>
+      </g>
+    </svg>
+
+    <div class="wrap">
+      <div class="eyebrow mono">I Encontro · Primeira edição</div>
+      <h1>Astro<em>IA</em> 2027</h1>
+      <p class="subtitle">Encontro de Astronomia na Era da Inteligência Artificial e dos Grandes Surveys</p>
+
+      <div class="facts">
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span><strong>5 a 9 de julho de 2027</strong></span>
+        </div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span><strong>UFS</strong> · São Cristóvão, Sergipe</span>
+        </div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 21c0-3-1.8-5.5-4.5-6.5"/></svg>
+          <span>Evento científico <strong>nacional</strong> · presencial</span>
+        </div>
+      </div>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="#datas" aria-disabled="true">Inscrições em breve</a>
+        <a class="btn btn-ghost" href="#programacao">Ver programação →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="sobre">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Sobre o encontro</span>
+          <h2>Um espaço inédito para discutir astronomia, dados e IA no Nordeste</h2>
+        </div>
+        <div class="about-grid">
+          <div>
+            <p>A astronomia entrou na era dos grandes volumes de dados. Levantamentos fotométricos, espectroscópicos e temporais produzem hoje catálogos com <strong>milhões a bilhões de objetos</strong>, e extrair ciência desses dados exige métodos estatísticos, aprendizado de máquina e inteligência artificial.</p>
+            <p>O <strong>AstroIA 2027</strong> reúne pesquisadores, docentes, pós-doutorandos e estudantes para discutir métodos modernos de análise, classificação, modelagem e interpretação de grandes bases de dados astronômicos, em diferentes subáreas da astronomia.</p>
+            <p>Sediado na <strong>Universidade Federal de Sergipe</strong>, o encontro inaugura uma série científica bienal dedicada à interface entre astronomia, inteligência artificial e grandes surveys, aproximando estudantes e pesquisadores do Nordeste das principais colaborações nacionais e internacionais.</p>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>5</b><span>dias de programação científica</span></div>
+            <div class="stat"><b>~100</b><span>participantes presenciais</span></div>
+            <div class="stat"><b>6</b><span>eixos temáticos</span></div>
+            <div class="stat"><b>e-book</b><span>anais com ISBN</span></div>
+          </div>
+        </div>
+        <div class="surveys" aria-label="Surveys e observatórios em discussão">
+          <span>Vera C. Rubin / LSST</span><span>JWST</span><span>Nancy Grace Roman</span><span>Euclid</span><span>Gaia</span><span>DESI</span><span>SDSS-V</span><span>S-PLUS</span><span>J-PAS</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="temas" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Eixos temáticos</span>
+          <h2>Do Sistema Solar à cosmologia</h2>
+          <p>Aplicações de inteligência artificial, aprendizado de máquina, inferência estatística e ciência de dados em diferentes áreas da astronomia.</p>
+        </div>
+        <div class="topics">
+          <article class="topic">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></div>
+            <h3>Astrofísica estelar e Via Láctea</h3>
+            <p>Espectroscopia em larga escala, arqueologia galáctica, evolução química e parâmetros estelares com aprendizado de máquina.</p>
+          </article>
+          <article class="topic">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6"/><ellipse cx="12" cy="12" rx="11" ry="3.5" transform="rotate(-20 12 12)"/></svg></div>
+            <h3>Exoplanetas e atmosferas</h3>
+            <p>Caracterização atmosférica com JWST, HST e Ariel, métodos de recuperação atmosférica e conexão estrela–planeta.</p>
+          </article>
+          <article class="topic">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="8" r="2.5"/><circle cx="16" cy="6" r="1.5"/><circle cx="17" cy="16" r="3"/><circle cx="8" cy="17" r="1.2"/></svg></div>
+            <h3>Pequenos corpos do Sistema Solar</h3>
+            <p>Asteroides e objetos transnetunianos a partir de surveys e do JWST, com IA aplicada à caracterização de populações.</p>
+          </article>
+          <article class="topic">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12c4-6 9-4 9 0s-5 6-9 0-9-6-9 0 5 6 9 0z"/></svg></div>
+            <h3>Galáxias e lentes gravitacionais</h3>
+            <p>Morfologia de galáxias, lentes gravitacionais e deep learning em imagens de Rubin/LSST, Euclid, Roman e DES.</p>
+          </article>
+          <article class="topic">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="6" r="1.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="19" cy="7" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="14" r="1.5"/><circle cx="11" cy="20" r="1.5"/><path d="M5 6l7-2 7 3M5 6l3 7 8 1 3-7M8 13l3 7 5-6"/></svg></div>
+            <h3>Cosmologia e grandes estruturas</h3>
+            <p>Inferência estatística e análise de dados em larga escala para matéria escura, energia escura e estrutura do Universo.</p>
+          </article>
+          <article class="topic">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+            <h3>Transientes e domínio do tempo</h3>
+            <p>Supernovas, variabilidade, eventos raros, brokers de alertas e classificação automática no contexto do Rubin/LSST.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="programacao">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Programação preliminar</span>
+          <h2>Cinco dias, cinco temas</h2>
+          <p>Palestras convidadas, sessões temáticas, apresentações orais, pôsteres, atividades com dados públicos e mesa-redonda.</p>
+        </div>
+
+        <div class="program">
+          <details class="day" open>
+            <summary>
+              <div class="day-date">SEG<b>05 jul</b></div>
+              <div class="day-theme">Astronomia, inteligência artificial e grandes surveys</div>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="day-body">
+              <div class="slot"><span class="when mono">Manhã</span><p>Credenciamento, abertura institucional e apresentação do AstroIA 2027. Palestra magna sobre a astronomia na era dos grandes levantamentos e da IA: desafios científicos e computacionais de Rubin/LSST, Gaia, SDSS, S-PLUS, J-PAS, Euclid, Roman e JWST.</p></div>
+              <div class="slot"><span class="when mono">Tarde</span><p>Sessão temática sobre a participação brasileira em grandes projetos astronômicos e a formação de recursos humanos. Apresentações orais selecionadas. Sessão de pôsteres I.</p></div>
+            </div>
+          </details>
+
+          <details class="day">
+            <summary>
+              <div class="day-date">TER<b>06 jul</b></div>
+              <div class="day-theme">Astrofísica estelar, Via Láctea e espectroscopia em larga escala</div>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="day-body">
+              <div class="slot"><span class="when mono">Manhã</span><p>Astrofísica estelar na era dos grandes bancos de dados: Gaia, APOGEE/SDSS, arqueologia galáctica, evolução química da Via Láctea e aprendizado de máquina na determinação de parâmetros estelares e abundâncias químicas.</p></div>
+              <div class="slot"><span class="when mono">Tarde</span><p>Atividade demonstrativa com dados públicos de grandes levantamentos estelares: obtenção, curadoria, cruzamento e interpretação de catálogos. Apresentações orais e pôsteres.</p></div>
+            </div>
+          </details>
+
+          <details class="day">
+            <summary>
+              <div class="day-date">QUA<b>07 jul</b></div>
+              <div class="day-theme">Pequenos corpos, exoplanetas, atmosferas e inferência estatística</div>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="day-body">
+              <div class="slot"><span class="when mono">Manhã</span><p>Exoplanetas e atmosferas planetárias com dados do JWST, HST, Ariel e espectroscopia de alta resolução. Técnicas estatísticas e IA na modelagem de espectros de transmissão e emissão.</p></div>
+              <div class="slot"><span class="when mono">Tarde</span><p>Discussão científica em grupos sobre problemas comuns entre subáreas que usam grandes volumes de dados, com foco na construção de projetos colaborativos.</p></div>
+            </div>
+          </details>
+
+          <details class="day">
+            <summary>
+              <div class="day-date">QUI<b>08 jul</b></div>
+              <div class="day-theme">Galáxias, cosmologia, lentes gravitacionais e deep learning</div>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="day-body">
+              <div class="slot"><span class="when mono">Manhã</span><p>Astrofísica extragaláctica, lentes gravitacionais, morfologia de galáxias e deep learning em imagens astronômicas, com perspectivas de Rubin/LSST, Euclid, Roman e DES.</p></div>
+              <div class="slot"><span class="when mono">Tarde</span><p>Cosmologia, grandes estruturas e inferência estatística. Desafio científico em pequenos grupos com dados públicos: classificação, visualização e interpretação.</p></div>
+            </div>
+          </details>
+
+          <details class="day">
+            <summary>
+              <div class="day-date">SEX<b>09 jul</b></div>
+              <div class="day-theme">Transientes, astronomia no domínio do tempo e perspectivas futuras</div>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="day-body">
+              <div class="slot"><span class="when mono">Manhã</span><p>Transientes, variabilidade estelar, supernovas, eventos raros e sistemas de alerta do Rubin/LSST: brokers, classificação automática e identificação rápida de fenômenos variáveis.</p></div>
+              <div class="slot"><span class="when mono">Tarde</span><p>Resultados do desafio com dados públicos. Mesa-redonda <em>“O Brasil nos grandes projetos internacionais: desafios, oportunidades e caminhos para a formação de novas gerações”</em>. Encerramento e menção honrosa aos melhores trabalhos de estudantes.</p></div>
+            </div>
+          </details>
+        </div>
+        <p class="note">Programação preliminar, sujeita a ajustes conforme a confirmação dos palestrantes e a disponibilidade dos espaços da UFS.</p>
+      </div>
+    </section>
+
+    <section id="palestrantes" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Palestrantes convidados</span>
+          <h2>Quem vem conversar com a gente</h2>
+          <p>Novos nomes serão anunciados conforme as confirmações.</p>
+        </div>
+        <div class="speakers">
+          <article class="speaker">
+            <div class="avatar" aria-hidden="true">DH</div>
+            <h3>David W. Hogg</h3>
+            <div class="inst">New York University · Flatiron Institute (EUA)</div>
+            <p>Referência internacional na interface entre astronomia, ciência de dados, inferência estatística e software aberto. Coautor do método The Cannon de espectroscopia estelar orientada por dados.</p>
+            <span class="badge mono">Convidado · a confirmar</span>
+          </article>
+          <article class="speaker">
+            <div class="avatar" aria-hidden="true">CM</div>
+            <h3>Claudia Mendes de Oliveira</h3>
+            <div class="inst">IAG · Universidade de São Paulo</div>
+            <p>Uma das principais lideranças brasileiras em astrofísica extragaláctica, instrumentação e grandes levantamentos fotométricos, com atuação central no S-PLUS.</p>
+            <span class="badge mono">Convidada · a confirmar</span>
+          </article>
+          <article class="speaker">
+            <div class="avatar" aria-hidden="true">MP</div>
+            <h3>Mário De Prá</h3>
+            <div class="inst">Observatório Nacional · MCTI</div>
+            <p>Astronomia observacional, fotometria e espectroscopia de asteroides e objetos transnetunianos, incluindo estudos recentes de pequenos corpos com o JWST.</p>
+            <span class="badge mono">Convidado · a confirmar</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="datas">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Datas importantes</span>
+          <h2>Marque no calendário</h2>
+          <p>Inscrições e submissão de trabalhos (orais e pôsteres) serão abertas em breve. Os trabalhos apresentados farão parte dos anais eletrônicos do evento.</p>
+        </div>
+        <div class="timeline">
+          <div class="tl"><div class="d"><span class="todo">a definir</span></div><div class="l">Abertura das inscrições</div></div>
+          <div class="tl"><div class="d"><span class="todo">a definir</span></div><div class="l">Prazo para submissão de resumos</div></div>
+          <div class="tl"><div class="d"><span class="todo">a definir</span></div><div class="l">Divulgação dos trabalhos aceitos</div></div>
+          <div class="tl"><div class="d">5–9 jul 2027</div><div class="l">AstroIA 2027 na UFS</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="local" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Local</span>
+          <h2>Universidade Federal de Sergipe</h2>
+        </div>
+        <div class="venue">
+          <div class="venue-info">
+            <h3>Campus São Cristóvão</h3>
+            <p>Cidade Universitária Prof. José Aloísio de Campos<br>Av. Marcelo Deda Chagas, s/n · São Cristóvão/SE</p>
+            <p>Auditório: <span class="todo">a confirmar</span></p>
+            <p>O campus fica próximo à capital, Aracaju, com acesso ao aeroporto, à rede hoteleira e aos serviços urbanos. Informações sobre hospedagem e transporte serão publicadas aqui.</p>
+          </div>
+          <iframe title="Mapa da UFS, Campus São Cristóvão" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Universidade+Federal+de+Sergipe+S%C3%A3o+Crist%C3%B3v%C3%A3o&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="comissoes">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker mono">Organização</span>
+          <h2>Comissões</h2>
+        </div>
+        <div class="committees">
+          <div class="committee">
+            <h3>Comissão organizadora</h3>
+            <ul>
+              <li><span>Diogo Martins Souto</span><span>UFS · Coordenação geral</span></li>
+              <li><span>Rodrigo Georgetti Vieira</span><span>UFS · Secretaria e inscrições</span></li>
+              <li><span>Sergio Scarano Jr</span><span>UFS · Infraestrutura e logística</span></li>
+              <li><span>Javier Ernesto Gonzalez Sanchez</span><span>UFS · Divulgação e site</span></li>
+              <li><span>Raimundo Lopes de Oliveira Filho</span><span>UFS · Anais (e-book)</span></li>
+              <li><span>Veronica Loaiza-Tacuri</span><span>UFS · Apoio operacional</span></li>
+              <li><span>Pedro Italo</span><span>UFS · Apoio operacional</span></li>
+              <li><span>Nayara Isabelle Feliciano Souza</span><span>UFS · Apoio operacional</span></li>
+              <li><span>Raphael Gomes Souza</span><span>UFS · Apoio operacional</span></li>
+            </ul>
+          </div>
+          <div class="committee">
+            <h3>Comitê científico</h3>
+            <ul>
+              <li><span>Diogo Martins Souto</span><span>UFS</span></li>
+              <li><span>Luciano Casarini</span><span>UFS</span></li>
+              <li><span>Javier Ernesto Gonzalez Sanchez</span><span>UFS</span></li>
+              <li><span>Raimundo Lopes de Oliveira Filho</span><span>UFS</span></li>
+              <li><span>Veronica Loaiza-Tacuri</span><span>UFS</span></li>
+              <li><span>Fredi Giuseppe-quis <span class="todo">conferir nome</span></span><span>UFES</span></li>
+              <li><span>Lilianne Nakazono</span><span>ON/MCTI</span></li>
+              <li><span>Luciano Fraga</span><span>LNA/MCTI</span></li>
+              <li><span>Tharcisyo Duarte</span><span>UFCA</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact alt" id="contato">
+      <div class="wrap">
+        <h2>Fale com a organização</h2>
+        <p>Dúvidas sobre inscrições, submissão de trabalhos ou parcerias? Escreva para a comissão organizadora.</p>
+        <a class="btn btn-primary" href="mailto:EMAIL_DO_EVENTO">✉&nbsp; <span class="todo" style="background:none;border:0;color:inherit;padding:0">e-mail do evento</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div><strong>AstroIA 2027</strong> · I Encontro de Astronomia na Era da IA e dos Grandes Surveys</div>
+      <div>Realização: Universidade Federal de Sergipe · Programa de Pós-Graduação em Física (PPGFI/UFS)</div>
+    </div>
+  </footer>
+
 </body>
 </html>
